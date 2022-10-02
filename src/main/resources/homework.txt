@@ -1,0 +1,35 @@
+Create a webapp backend that manages the transactions in a budget:
+
+Transaction
+- id
+- product
+- type: SELL/BUY
+- amount: double
+
+GET /transactions - get all transactions. Make it filterable by type, minAmount, maxAmount (you will have 6 filtering methods in repository: byType, byMinAmount, byMaxAmount, byTypeAndMin, byTypeAndMax, byMinAndMax, byTypeAndMinAndMax)
+GET /transactions/{id} - get transaction with id
+POST /transactions - adds a new transaction
+PUT  /transactions/{id} - replaces the transaction with id
+PATCH /transactions/{id} - supports changing the product and the amount
+DELETE /transactions/{id} - deletes the transaction with id
+GET /transactions/reports/type -> returns a map from type to sum of amount - the processing is done in memory, not in the database. you can try making another implementation with calculations in db
+GET /transactions/reports/product -> returns a map from product to sum of amount
+
+example:
+
+If you have transactions:
+[
+{type:SELL, amount:3.2},
+{type:BUY, amount:4.0},
+{type:SELL, amount:1.3}
+]
+
+the type report will be:
+{
+SELL: [
+{type:SELL, amount:3.2},
+{type:SELL, amount:1.3}
+   ],
+
+BUY: [{type:BUY, amount:4.0}]
+}
